@@ -17,27 +17,32 @@ root.innerHTML = `
    <input type="text" class="input">
    <div class="dropdown">
       <div class="dropdown-menu">
-         <div class="dropdown-content rusults"></div>
+         <div class="dropdown-content results"></div>
       </div>
    </div>
 `;
 
 const input = document.querySelector("input");
-const dropdown = document.querySelector(".dropdown")
-const resultWrapper = document.querySelector(".results")
+const dropdown = document.querySelector(".dropdown");
+const resultWrapper = document.querySelector(".results");
 
 const onInput = async (evt) => {
    const movies = await fetchData(evt.target.value);
 
+   resultWrapper.innerHTML = "";
+   dropdown.classList.add("is-active");
    for (let movie of movies) {
-      const div = document.createElement("div");
+      const option = document.createElement("a");
+      const imgSrc = movie.Poster === "N/A" ? "" : movie.Poster;
 
-      div.innerHTML = `
-         <img src="${movie.Poster}"/>
-         <h1>${movie.Title}</h1>
+      option.classList.add("dropdown-item");
+
+      option.innerHTML = `
+         <img src="${imgSrc}"/>
+         ${movie.Title}
       `;
 
-      document.querySelector("#target").appendChild(div);
+      resultWrapper.appendChild(option);
    }
 };
 
