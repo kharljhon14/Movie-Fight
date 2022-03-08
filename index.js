@@ -6,6 +6,8 @@ const fetchData = async (searchTerm) => {
       },
    });
 
+   if (response.data.Error) return [];
+
    return response.data.Search;
 };
 
@@ -22,7 +24,7 @@ const onInput = async (evt) => {
          <h1>${movie.Title}</h1>
       `;
 
-      document.querySelector("#target").appendChild(div)
+      document.querySelector("#target").appendChild(div);
    }
 };
 
